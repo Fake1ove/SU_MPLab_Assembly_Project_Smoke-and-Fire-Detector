@@ -1,0 +1,11 @@
+Warning[205] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 1 : Found directive in column 1. (list)
+Warning[205] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 12 : Found directive in column 1. (org)
+Warning[203] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 14 : Found opcode in column 1. (bsf)
+Warning[203] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 15 : Found opcode in column 1. (movlw)
+Warning[203] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 16 : Found opcode in column 1. (movwf)
+Message[302] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 16 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 18 : Found opcode in column 1. (movlw)
+Warning[203] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 19 : Found opcode in column 1. (movwf)
+Message[302] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 19 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 21 : Found opcode in column 1. (bcf)
+Warning[205] D:\WORK\MPLAB\PROJECT\FINAL\FLAME_GAS\GAS_FLAME.ASM 51 : Found directive in column 1. (end)

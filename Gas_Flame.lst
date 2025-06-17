@@ -1,0 +1,169 @@
+MPASM  5.35                     GAS_FLAME.ASM   3-5-2024  8:39:56         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (list)
+                      00001 list P=16F84A
+                      00002 #include <p16f84a.inc>
+                      00001         LIST
+                      00002 ; P16F84A.INC  Standard Header File, Version 2.00    Microchip Technology, Inc.
+                      00134         LIST
+                      00003 
+  00000003            00004 STATUS      equ     0x03
+  00000005            00005 PORTA       equ     0x05
+  00000006            00006 PORTB       equ     0x06
+  00000085            00007 TRISA       equ     0x85
+  00000086            00008 TRISB       equ     0x86
+  00000081            00009 OPTION_REG  equ     0x81
+  00000005            00010 RP0         equ     5
+                      00011 
+Warning[205]: Found directive in column 1. (org)
+0000                  00012 org 0x000
+                      00013 
+Warning[203]: Found opcode in column 1. (bsf)
+0000   1683           00014 bsf STATUS, RP0     ; เลือก bank 1
+Warning[203]: Found opcode in column 1. (movlw)
+0001   3010           00015 movlw 0x10          ; ตั้งค่าให้ขา RA4 เป็น Input
+Warning[203]: Found opcode in column 1. (movwf)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   0085           00016 movwf TRISA         ; โหลดค่า 0x10 เข้า TRISA (ตัวบอร์ดที่ต้องการให้เป็น Input)
+                      00017 
+Warning[203]: Found opcode in column 1. (movlw)
+0003   3001           00018 movlw 0x01          ; ตั้งค่าให้ขา RB0 เป็น Input
+Warning[203]: Found opcode in column 1. (movwf)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   0086           00019 movwf TRISB         ; โหลดค่า 0x01 เข้า TRISB (ตัวบอร์ดที่ต้องการให้เป็น Input)
+                      00020 
+Warning[203]: Found opcode in column 1. (bcf)
+0005   1283           00021 bcf STATUS, RP0     ; เลือก bank 0
+                      00022 
+0006                  00023 MAIN_LOOP:
+0006   1E05           00024     btfss PORTA, 4   ; ตรวจสอบว่าเจอเปลวไฟหรือไม่ (ขา RA4)
+0007   2810           00025     goto FLAME_PRESSED ; ถ้าเจอ ไปที่ FLAME_PRESSED
+0008   1405           00026     bsf PORTA, 0      ; ตั้งขา RA0 bank เป็น 0 Buzzer ไม่ดัง
+0009   1105           00027     bcf PORTA, 2      ; ตั้งขา RA2 bank เป็น 0 LED สีแดงดับ 
+000A   280B           00028     goto SECOND_LOOP   ; ไปลูป 2
+                      00029 
+000B                  00030 SECOND_LOOP:
+000B   1C06           00031     btfss PORTB, 0  ; ตรวจสอบว่าพบแก๊สหรือไม่ (ขา RB0)
+000C   2815           00032     goto SMOKE_PRESSED ; ถ้าเจอ ไปที่ SMOKE_PRESSED
+000D   1085           00033     bcf PORTA, 1     ;ตั้งขา RA1 bank เป็น 0 Buzzer ไม่ดัง
+000E   1585           00034     bsf PORTA, 3         ; ตั้งขา RA2 bank เป็น 0 LED สีแดงดับ 
+000F   2806           00035     goto MAIN_LOOP   ;ไปวนลูป
+                      00036 
+0010                  00037 FLAME_PRESSED:           ;ตรวจเจอเปลวไฟ
+0010   1005           00038     bcf PORTA, 0      ; ตั้งขา RA0 bank เป็น 1 Buzzer ดัง
+0011   1505           00039     bsf PORTA, 2      ; ตั้งขา RA2 bank เป็น 1 LED สีแดงติด
+0012   1486           00040     bsf PORTB, 1      ; ตั้งขา RB1 เป็น 1 (IN1)
+MPASM  5.35                     GAS_FLAME.ASM   3-5-2024  8:39:56         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0013   1106           00041     bcf PORTB, 2      ; ตั้งขา RB2 เป็น 0 (IN2)
+0014   2806           00042     goto MAIN_LOOP    ; วนลูป
+                      00043 
+0015                  00044 SMOKE_PRESSED:        ;ตรวจเจอแก๊ส
+0015   1485           00045     bsf PORTA, 1      ; ตั้งขา RA1 bank เป็น 1 Buzzer ดัง
+0016   1185           00046     bcf PORTA, 3      ; ตั้งขา RA3 bank เป็น 1 LED สีเหลือง
+0017   1086           00047     bcf PORTB, 1      ; ตั้งขา RB1 เป็น 0 (IN1)
+0018   1106           00048     bcf PORTB, 2      ; ตั้งขา RB2 เป็น 0 (IN2)
+0019   2806           00049     goto MAIN_LOOP    ; วนลูป
+                      00050 
+Warning[205]: Found directive in column 1. (end)
+                      00051 end
+MPASM  5.35                     GAS_FLAME.ASM   3-5-2024  8:39:56         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+DC                                00000001
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FLAME_PRESSED                     00000010
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+MAIN_LOOP                         00000006
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+SECOND_LOOP                       0000000B
+SMOKE_PRESSED                     00000015
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TRISA                             00000085
+TRISB                             00000086
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+MPASM  5.35                     GAS_FLAME.ASM   3-5-2024  8:39:56         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_HS_OSC                           00003FFE
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXX------ ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    26
+Program Memory Words Free:   998
+
+
+Errors   :     0
+Warnings :     9 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+
